@@ -22,6 +22,70 @@ def assert_version(version_a, version_b):
     assert len(version_a.commits) == len(version_b.commits)
 
 
+def test_class_commit_properties():
+    commit = cl.Commit(
+        {
+            'hash': 'testhash',
+            'tags': ['v1.2.3'],
+            'author': 'Author',
+            'date': 'Sat Oct 17 15:00:48 2020 +0200',
+            'message': 'A whole new world',
+            'title': 'breaking fix (thoughts): add inspiration',
+            'unused': 'none',
+        }
+    )
+
+    assert commit.hash == 'testhash'
+    assert commit.tags == ['v1.2.3']
+    assert commit.author == 'Author'
+    assert commit.date == 'Sat Oct 17 15:00:48 2020 +0200'
+    assert commit.message == 'A whole new world'
+    assert commit.title == 'breaking fix (thoughts): add inspiration'
+    assert commit.unused == 'none'
+    assert commit.description == "add inspiration"
+    assert commit.type == 'fix'
+    assert commit.is_breaking is True
+    assert commit.is_feature is False
+    assert commit.is_fix is True
+    assert commit.scope == 'thoughts'
+
+
+@pytest.mark.parametrize(
+    "commit_type, expected",
+    [
+        ('build:', 'build'),
+        ('ci:', 'ci'),
+        ('doc:', 'docs'),
+        ('docs:', 'docs'),
+        ('feat:', 'feat'),
+        ('feature:', 'feat'),
+        ('features:', 'feat'),
+        ('fix:', 'fix'),
+        ('fixes:', 'fix'),
+        ('perf:', 'perf'),
+        ('performance:', 'perf'),
+        ('refac:', 'refactor'),
+        ('refactor:', 'refactor'),
+        ('style:', 'style'),
+        ('test:', 'test'),
+        ('tests:', 'tests'),
+        ('wrong format -', 'other'),  # uses a dash instead of a colon
+    ],
+)
+def test_class_commit_types(commit_type, expected):
+    commit_data = {
+        'hash': 'testhash',
+        'tags': [],
+        'author': 'Author',
+        'date': 'Sat Oct 17 15:00:48 2020 +0200',
+        'message': '',
+        'title': f'{commit_type} add inspiration',
+    }
+    commit = cl.Commit(commit_data)
+
+    assert commit.type == expected
+
+
 @pytest.mark.parametrize(
     "test_input, expected",
     [
