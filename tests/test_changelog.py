@@ -43,7 +43,7 @@ def test_class_commit_properties():
     assert commit.title == 'breaking fix (thoughts): add inspiration'
     assert commit.unused == 'none'
     assert commit.description == "add inspiration"
-    assert commit.type == 'fix'
+    assert commit.commit_type == 'fix'
     assert commit.is_breaking is True
     assert commit.is_feature is False
     assert commit.is_fix is True
@@ -83,7 +83,7 @@ def test_class_commit_types(commit_type, expected):
     }
     commit = cl.Commit(commit_data)
 
-    assert commit.type == expected
+    assert commit.commit_type == expected
 
 
 @pytest.mark.parametrize(
@@ -93,7 +93,7 @@ def test_class_commit_types(commit_type, expected):
             "performance: make it faster",
             {
                 'description': 'make it faster',
-                'type': 'perf',
+                'commit_type': 'perf',
                 'scope': None,
                 'is_breaking': False,
                 'is_feature': False,
@@ -104,7 +104,7 @@ def test_class_commit_types(commit_type, expected):
             "feature(read me): specify expected message format",
             {
                 'description': 'specify expected message format',
-                'type': 'feat',
+                'commit_type': 'feat',
                 'scope': 'read me',
                 'is_breaking': False,
                 'is_feature': True,
@@ -115,7 +115,7 @@ def test_class_commit_types(commit_type, expected):
             "features(more): all the new features",
             {
                 'description': 'all the new features',
-                'type': 'feat',
+                'commit_type': 'feat',
                 'scope': 'more',
                 'is_breaking': False,
                 'is_feature': True,
@@ -126,7 +126,7 @@ def test_class_commit_types(commit_type, expected):
             "Break feat(read me): specify expected message format",
             {
                 'description': 'specify expected message format',
-                'type': 'feat',
+                'commit_type': 'feat',
                 'scope': 'read me',
                 'is_breaking': True,
                 'is_feature': True,
@@ -137,7 +137,7 @@ def test_class_commit_types(commit_type, expected):
             "doc(README.md): specify expected message format",
             {
                 'description': 'specify expected message format',
-                'type': 'docs',
+                'commit_type': 'docs',
                 'scope': 'README.md',
                 'is_breaking': False,
                 'is_feature': False,
@@ -148,7 +148,7 @@ def test_class_commit_types(commit_type, expected):
             "docs(README.md): specify expected message format",
             {
                 'description': 'specify expected message format',
-                'type': 'docs',
+                'commit_type': 'docs',
                 'scope': 'README.md',
                 'is_breaking': False,
                 'is_feature': False,
@@ -159,7 +159,7 @@ def test_class_commit_types(commit_type, expected):
             "BREAKING fix (code): repair things",
             {
                 'description': 'repair things',
-                'type': 'fix',
+                'commit_type': 'fix',
                 'scope': 'code',
                 'is_breaking': True,
                 'is_feature': False,
@@ -170,7 +170,7 @@ def test_class_commit_types(commit_type, expected):
             "breaking fix: repair things",
             {
                 'description': 'repair things',
-                'type': 'fix',
+                'commit_type': 'fix',
                 'scope': None,
                 'is_breaking': True,
                 'is_feature': False,
@@ -181,7 +181,7 @@ def test_class_commit_types(commit_type, expected):
             "fix: add inspiration",
             {
                 'description': 'add inspiration',
-                'type': 'fix',
+                'commit_type': 'fix',
                 'scope': None,
                 'is_breaking': False,
                 'is_feature': False,
@@ -192,7 +192,7 @@ def test_class_commit_types(commit_type, expected):
             "fixes: add inspiration",
             {
                 'description': 'add inspiration',
-                'type': 'fix',
+                'commit_type': 'fix',
                 'scope': None,
                 'is_breaking': False,
                 'is_feature': False,
@@ -203,7 +203,7 @@ def test_class_commit_types(commit_type, expected):
             "docs (readme): add badges",
             {
                 'description': 'add badges',
-                'type': 'docs',
+                'commit_type': 'docs',
                 'scope': 'readme',
                 'is_breaking': False,
                 'is_feature': False,
@@ -214,7 +214,7 @@ def test_class_commit_types(commit_type, expected):
             "refac: add things",
             {
                 'description': 'add things',
-                'type': 'refactor',
+                'commit_type': 'refactor',
                 'scope': None,
                 'is_breaking': False,
                 'is_feature': False,
@@ -225,7 +225,7 @@ def test_class_commit_types(commit_type, expected):
             "build(actions): create python-app.yml for github action's",
             {
                 'description': 'create python-app.yml for github action\'s',
-                'type': 'build',
+                'commit_type': 'build',
                 'scope': 'actions',
                 'is_breaking': False,
                 'is_feature': False,
@@ -236,7 +236,7 @@ def test_class_commit_types(commit_type, expected):
             "README.md: correct typo",
             {
                 'description': 'README.md: correct typo',
-                'type': 'other',
+                'commit_type': 'other',
                 'scope': None,
                 'is_breaking': False,
                 'is_feature': False,
@@ -247,7 +247,7 @@ def test_class_commit_types(commit_type, expected):
             "Initial commit",
             {
                 'description': 'Initial commit',
-                'type': 'other',
+                'commit_type': 'other',
                 'scope': None,
                 'is_breaking': False,
                 'is_feature': False,

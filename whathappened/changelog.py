@@ -98,7 +98,7 @@ class Commit:
         return self._breaking
 
     @property
-    def type(self):
+    def commit_type(self):
         """Group equivalent commit types."""
         try:
             return Commit.group_types[self._commit_type]
@@ -124,11 +124,11 @@ class Commit:
 
     @property
     def is_feature(self):
-        return "feat" in self.type.lower()
+        return "feat" in self.commit_type.lower()
 
     @property
     def is_fix(self):
-        return "fix" in self.type.lower()
+        return "fix" in self.commit_type.lower()
 
     def __repr__(self):
         return (
@@ -280,8 +280,8 @@ def format_log(versions, emoji=False):
         # store groupby results as lists
         groups = []
         uniquekeys = []
-        data = sorted(version.commits, key=lambda x: x.type[:4])
-        for k, g in groupby(data, lambda x: x.type):
+        data = sorted(version.commits, key=lambda x: x.commit_type[:4])
+        for k, g in groupby(data, lambda x: x.commit_type):
             groups.append(list(g))  # Store group iterator as a list
             uniquekeys.append(k)
 
