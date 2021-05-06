@@ -66,55 +66,69 @@ class Commit:
         flags=re.IGNORECASE,
     )
 
+    group_types = {
+        'doc': 'docs',
+        'docs': 'docs',
+        'feat': 'feat',
+        'feature': 'feat',
+        'features': 'feat',
+        'fix': 'fix',
+        'fixes': 'fix',
+        'perf': 'perf',
+        'performance': 'perf',
+        'refac': 'refactor',
+        'refactor': 'refactor',
+    }
+
     def __init__(self, commit_dict):
-        self.commit_dict = commit_dict
+        # add items in dictionary to class
+        for key, value in commit_dict.items():
+            setattr(self, key, value)
 
-    def __getattr__(self, name):
+        # parse commit title for commit-it-simple parameters
+        result = Commit.commit_regex.match(self.title)
+        self._breaking = result.group('breaking')
+        self._commit_type = result.group('type')
+        self._scope = result.group('scope')
+        self._description = result.group('description')
+        self._description_alt = result.group('description_alt')
 
+    @property
+    def breaking(self):
+        return self._breaking
+
+    @property
+    def type(self):
+        """Group equivalent commit types."""
         try:
-            return self.commit_dict[name]
+            return Commit.group_types[self._commit_type]
         except KeyError:
+            # if commit type group not specified, return raw commit type
+            return self._commit_type if self._commit_type is not None else 'other'
 
-            result = Commit.commit_regex.match(self.title)
-            breaking, commit_type, scope, description, description_alt = (
-                result.group('breaking'),
-                result.group('type'),
-                result.group('scope'),
-                result.group('description'),
-                result.group('description_alt'),
-            )
+    @property
+    def description(self):
+        return (
+            self._description
+            if self._description is not None
+            else self._description_alt
+        )
 
-            if name == 'description':
-                return description if description is not None else description_alt
-            elif name == 'is_breaking':
-                return breaking is not None
-            elif name == 'type':
-                # group equivalent commit types
-                types = {
-                    'doc': 'docs',
-                    'docs': 'docs',
-                    'feat': 'feat',
-                    'feature': 'feat',
-                    'features': 'feat',
-                    'fix': 'fix',
-                    'fixes': 'fix',
-                    'perf': 'perf',
-                    'performance': 'perf',
-                    'refac': 'refactor',
-                    'refactor': 'refactor',
-                }
-                try:
-                    return types[commit_type]
-                except KeyError:
-                    return commit_type if commit_type is not None else 'other'
-            elif name == 'scope':
-                return scope
-            elif name == 'is_feature':
-                return "feat" in self.type.lower()
-            elif name == 'is_fix':
-                return "fix" in self.type.lower()
-            else:
-                raise AttributeError(f"Attribute '{name}' not found in class Commit")
+    @property
+    def scope(self):
+        return self._scope
+
+    @property
+    def is_breaking(self):
+        return self.breaking is not None
+
+    @property
+    def is_feature(self):
+        return "feat" in self.type.lower()
+
+    @property
+    def is_fix(self):
+        return "fix" in self.type.lower()
 
     def __repr__(self):
         return (
