@@ -10,6 +10,10 @@ A changelog generator using simply structured git commit messages
 
 ## Inspired by
 
+* [Commit-It-Simple](https://commit-it-simple.github.io/)
+
+and
+
 * [SemVer](https://semver.org/)
 * [Angular Commit Message Format](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit)
 * [Auto Changelog](https://github.com/Michael-F-Bryan/auto-changelog)
