@@ -38,6 +38,7 @@ Some options are available:
       --overriding-version TEXT  Specify a version number to use [format: x.y.z]
       -o, --output PATH  The changelog destination [default: stdout]
       -e, --emoji        Include emoji in headings if present
+      -d, --development  Include development-related commits
       -p, --prefix TEXT  Version prefix, often 'version' or 'v' [default: '']
       
       --version          Show the version and exit.
@@ -52,6 +53,10 @@ To create a changelog of commits that are yet to be pushed:
 To create a changelog of commits between (branch: main) and (tag: v1.0.0) and write the output to file:
 
     $ whathappened -o CHANGELOG.md main..v1.0.0
+
+To create a development changelog, with addition headings like 'Testing' and 'Reverted':
+
+    $ whathappened -d
 
 ## Package Changelog
 
@@ -91,11 +96,17 @@ For a nice summary of `type`s and what they mean, please see [Understanding Sema
 
 ## Emoji
 
-Adding the `--emoji` flag will add emoji after each heading in the changelog. Below is the list of emoji that are used:
+Adding the `--emoji` flag will add emoji after each heading in the changelog. Below are the emoji that are used:
 
+Production:
 * Docs 📝
 * Features ✨
 * Fixes 🐛
 * Performance ⚡️
 * Refactorings ♻️
 * Other 🃏 
+
+Development:
+* Continuous Integration 🤖
+* Reverted ☠️
+* Testing 🧪

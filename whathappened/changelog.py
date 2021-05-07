@@ -259,21 +259,36 @@ def override_latest_version(versions, overriding, prefix=""):
     return versions
 
 
-def format_log(versions, emoji=False):
-    """Produce a nicely formatted changelog - with emoji too if required."""
+def format_log(versions, emoji=False, development=False):
+    """
+    Produce a nicely formatted changelog - with emoji too if required.
+
+    Always includes production headings.
+    Includes additional headings if development is `True`.
+    """
     output = "# Changelog"
 
-    headings = {
+    production_headings = {
         'docs': "Docs 📝",
         'feat': "Features ✨",
         'fix': "Fixes 🐛",
         'perf': "Performance ⚡️",
         'refactor': "Refactorings ♻️",
-        'revert': "Reverted ☠️",
-        'test': "Testing 🧪",
-        'ci': "Continuous Integration 🤖",
         'other': "Other 🃏",
     }
+
+    development_headings = {
+        'ci': "Continuous Integration 🤖",
+        'revert': "Reverted ☠️",
+        'test': "Testing 🧪",
+    }
+
+    if development is True:
+        # combine both heading dictionaries into one
+        headings = {**production_headings, **development_headings}
+    else:
+        # use only the production headings
+        headings = production_headings
 
     if not emoji:
         # remove emoji (first two characters) from headings, and strip space character

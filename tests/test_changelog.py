@@ -956,6 +956,14 @@ def test_override_latest_version(versions, desired, prefix, expected):
                 },
                 {
                     'hash': 'e324c324df48a76113ad9b3c0887f161324046e4',
+                    'tags': [],
+                    'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
+                    'date': 'Sun Oct 18 07:31:25 2020 +0200',
+                    'message': '',
+                    'title': 'test (headings): check if they are the same',
+                },
+                {
+                    'hash': 'e324c324df48a76113ad9b3c0887f161324046e4',
                     'tags': ['v0.1.1'],
                     'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
                     'date': 'Sat Oct 17 17:30:25 2020 +0200',
@@ -1049,10 +1057,142 @@ def test_override_latest_version(versions, desired, prefix, expected):
         )
     ],
 )
-def test_changelog(test_input, expected):
+def test_changelog_production(test_input, expected):
     commits = test_input
     versions = cl.compile_log(commits)
     log = cl.format_log(versions)
+
+    print(log)
+
+    assert log == expected
+
+
+@pytest.mark.parametrize(
+    "test_input, expected",
+    [
+        (
+            [
+                {
+                    'hash': 'e324c324df48a76113ad9b3c0887f161324046e4',
+                    'tags': ['v0.1.2'],
+                    'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
+                    'date': 'Sun Oct 18 17:31:25 2020 +0200',
+                    'message': '',
+                    'title': 'test if "other" is the only heading, if so, remove it',
+                },
+                {
+                    'hash': 'e324c324df48a76113ad9b3c0887f161324046e4',
+                    'tags': [],
+                    'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
+                    'date': 'Sun Oct 18 07:31:25 2020 +0200',
+                    'message': '',
+                    'title': 'test (headings): check if they are the same',
+                },
+                {
+                    'hash': 'e324c324df48a76113ad9b3c0887f161324046e4',
+                    'tags': ['v0.1.1'],
+                    'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
+                    'date': 'Sat Oct 17 17:30:25 2020 +0200',
+                    'message': '',
+                    'title': 'breaking feat(readme): specify expected message format',
+                },
+                {
+                    'hash': '7b4e7e657f9e3f2f4033cc5f47bcc637f5799fe9',
+                    'tags': [],
+                    'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
+                    'date': 'Sat Oct 17 15:00:48 2020 +0200',
+                    'message': '',
+                    'title': 'breaking fix (code): repair things',
+                },
+                {
+                    'hash': '7b4e7e657f9e3f2f4033cc5f47bcc637f5799fe9',
+                    'tags': [],
+                    'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
+                    'date': 'Sat Oct 17 15:00:48 2020 +0200',
+                    'message': '',
+                    'title': 'breaking fix: repair things',
+                },
+                {
+                    'hash': '7b4e7e657f9e3f2f4033cc5f47bcc637f5799fe9',
+                    'tags': [],
+                    'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
+                    'date': 'Sat Oct 17 15:00:48 2020 +0200',
+                    'message': '',
+                    'title': 'fix: check _underscores_',
+                },
+                {
+                    'hash': 'f60445bba0ac48e12ce6be5526644037234ae500',
+                    'tags': ['v0.0.1'],
+                    'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
+                    'date': 'Sat Oct 17 15:00:31 2020 +0200',
+                    'message': '',
+                    'title': 'docs (readme): add badges',
+                },
+                {
+                    'hash': '9e57ba91f54244af913931c017480a39605c15f9',
+                    'tags': [],
+                    'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
+                    'date': 'Sat Oct 17 13:55:04 2020 +0200',
+                    'message': (
+                        'Setup Python 3.6 on ubuntu-latest\n'
+                        'Install pipenv and dependencies\n'
+                        'Test'
+                    ),
+                    'title': 'build(actions): create python-app.yml for github actions',
+                },
+                {
+                    'hash': '4094d22846daea951c4fe0d74abb2a798e9a3404',
+                    'tags': ['v0.0.0'],
+                    'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
+                    'date': 'Sat Oct 17 13:19:28 2020 +0200',
+                    'message': '',
+                    'title': 'Initial commit',
+                },
+            ],
+            """# Changelog
+
+## v0.1.2 (2020-10-18)
+
+### Other
+
+* Test if "other" is the only heading, if so, remove it
+
+### Testing
+
+* Headings - check if they are the same
+
+
+## v0.1.1 (2020-10-17)
+
+### Features
+
+* Readme - specify expected message format [BREAKING]
+
+### Fixes
+
+* Check \\_underscores\\_
+* Repair things [BREAKING]
+* Code - repair things [BREAKING]
+
+
+## v0.0.1 (2020-10-17)
+
+### Docs
+
+* Readme - add badges
+
+
+## v0.0.0 (2020-10-17)
+
+* Initial commit
+""",
+        )
+    ],
+)
+def test_changelog_development(test_input, expected):
+    commits = test_input
+    versions = cl.compile_log(commits)
+    log = cl.format_log(versions, development=True)
 
     print(log)
 

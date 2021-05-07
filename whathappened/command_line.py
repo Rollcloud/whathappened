@@ -12,6 +12,7 @@ def main(
     output="CHANGELOG.md",
     overriding_version=None,
     emoji=False,
+    development=False,
     prefix="",
     git_log_args=[],
 ):
@@ -24,7 +25,7 @@ def main(
             versions, overriding_version, prefix=prefix
         )
     )
-    log = changelog.format_log(versions, emoji=emoji)
+    log = changelog.format_log(versions, emoji=emoji, development=development)
 
     if output is not None:
         changelog.write_log(log, output)
@@ -53,6 +54,13 @@ def main(
     help="Include emoji in headings if present",
 )
 @click.option(
+    '--development',
+    '-d',
+    is_flag=True,
+    default=False,
+    help="Include development-related commits",
+)
+@click.option(
     '--prefix',
     '-p',
     default="",
@@ -60,7 +68,7 @@ def main(
 )
 @click.argument('git_log_args', nargs=-1, type=click.UNPROCESSED)
 @click.version_option(version=__version__)
-def cli(output, overriding_version, emoji, prefix, git_log_args):
+def cli(output, overriding_version, emoji, development, prefix, git_log_args):
     """
     Handle command line arguments. Extra arguments are passed to 'git log'.
     """
@@ -68,6 +76,7 @@ def cli(output, overriding_version, emoji, prefix, git_log_args):
         output=output,
         overriding_version=overriding_version,
         emoji=emoji,
+        development=development,
         prefix=prefix,
         git_log_args=git_log_args,
     )
