@@ -67,6 +67,9 @@ class Commit:
     )
 
     group_types = {
+        'build': 'build',
+        'chore': 'build',
+        'ci': 'ci',
         'doc': 'docs',
         'docs': 'docs',
         'feat': 'feat',
@@ -78,6 +81,8 @@ class Commit:
         'performance': 'perf',
         'refac': 'refactor',
         'refactor': 'refactor',
+        'revert': 'revert',
+        'test': 'test',
     }
 
     def __init__(self, commit_dict):
@@ -264,6 +269,9 @@ def format_log(versions, emoji=False):
         'fix': "Fixes 🐛",
         'perf': "Performance ⚡️",
         'refactor': "Refactorings ♻️",
+        'revert': "Reverted ☠️",
+        'test': "Testing 🧪",
+        'ci': "Continuous Integration 🤖",
         'other': "Other 🃏",
     }
 

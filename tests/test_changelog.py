@@ -54,6 +54,7 @@ def test_class_commit_properties():
     "commit_type, expected",
     [
         ('build:', 'build'),
+        ('chore:', 'build'),
         ('ci:', 'ci'),
         ('doc:', 'docs'),
         ('docs:', 'docs'),
