@@ -83,4 +83,8 @@ def cli(output, overriding_version, emoji, development, prefix, git_log_args):
 
 
 if __name__ == '__main__':
-    cli()
+    try:
+        cli()
+    except Exception as err:
+        # catch any exceptions that occur and exit cleanly without a stack trace
+        raise SystemExit(str(err))
