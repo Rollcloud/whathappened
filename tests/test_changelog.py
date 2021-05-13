@@ -3,7 +3,7 @@ import pytest
 from whathappened import changelog as cl
 
 
-def dummy_version(ref, date, breaking, feature, fix, num_commits):
+def create_version(ref, date, breaking, feature, fix, num_commits):
     version = cl.Version(ref, date)
     version.breaking = breaking
     version.feature = feature
@@ -336,7 +336,7 @@ def test_commit_title_parsing(test_input, expected):
                 },
             ],
             [
-                dummy_version(
+                create_version(
                     'v0.1.1',
                     'Sat Oct 17 17:30:25 2020 +0200',
                     breaking=3,
@@ -344,7 +344,7 @@ def test_commit_title_parsing(test_input, expected):
                     fix=3,
                     num_commits=4,
                 ),
-                dummy_version(
+                create_version(
                     'v0.0.1',
                     'Sat Oct 17 15:00:31 2020 +0200',
                     breaking=0,
@@ -352,7 +352,7 @@ def test_commit_title_parsing(test_input, expected):
                     fix=0,
                     num_commits=2,
                 ),
-                dummy_version(
+                create_version(
                     'v0.0.0',
                     'Sat Oct 17 13:19:28 2020 +0200',
                     breaking=0,
@@ -377,7 +377,7 @@ def test_compile_log_versions(test_input, expected):
     [
         (
             [
-                dummy_version(
+                create_version(
                     'HEAD',
                     'Sat Oct 17 17:30:25 2020 +0200',
                     breaking=3,
@@ -385,7 +385,7 @@ def test_compile_log_versions(test_input, expected):
                     fix=3,
                     num_commits=4,
                 ),
-                dummy_version(
+                create_version(
                     '0.1.1',
                     'Sat Oct 17 15:00:31 2020 +0200',
                     breaking=0,
@@ -393,7 +393,7 @@ def test_compile_log_versions(test_input, expected):
                     fix=0,
                     num_commits=2,
                 ),
-                dummy_version(
+                create_version(
                     '0.0.0',
                     'Sat Oct 17 13:19:28 2020 +0200',
                     breaking=0,
@@ -406,7 +406,7 @@ def test_compile_log_versions(test_input, expected):
         ),
         (
             [
-                dummy_version(
+                create_version(
                     'HEAD',
                     'Sat Oct 17 17:30:25 2020 +0200',
                     breaking=0,
@@ -414,7 +414,7 @@ def test_compile_log_versions(test_input, expected):
                     fix=3,
                     num_commits=4,
                 ),
-                dummy_version(
+                create_version(
                     '0.1.1',
                     'Sat Oct 17 15:00:31 2020 +0200',
                     breaking=0,
@@ -427,7 +427,7 @@ def test_compile_log_versions(test_input, expected):
         ),
         (
             [
-                dummy_version(
+                create_version(
                     'HEAD',
                     'Sat Oct 17 17:30:25 2020 +0200',
                     breaking=0,
@@ -435,7 +435,7 @@ def test_compile_log_versions(test_input, expected):
                     fix=3,
                     num_commits=4,
                 ),
-                dummy_version(
+                create_version(
                     '0.1.1',
                     'Sat Oct 17 15:00:31 2020 +0200',
                     breaking=0,
@@ -448,7 +448,7 @@ def test_compile_log_versions(test_input, expected):
         ),
         (
             [
-                dummy_version(
+                create_version(
                     'HEAD',
                     'Sat Oct 17 17:30:25 2020 +0200',
                     breaking=0,
@@ -456,7 +456,7 @@ def test_compile_log_versions(test_input, expected):
                     fix=0,
                     num_commits=4,
                 ),
-                dummy_version(
+                create_version(
                     '0.1.1',
                     'Sat Oct 17 15:00:31 2020 +0200',
                     breaking=0,
@@ -469,7 +469,7 @@ def test_compile_log_versions(test_input, expected):
         ),
         (
             [
-                dummy_version(
+                create_version(
                     'HEAD',
                     'Sat Oct 17 17:30:25 2020 +0200',
                     breaking=1,
@@ -477,7 +477,7 @@ def test_compile_log_versions(test_input, expected):
                     fix=1,
                     num_commits=4,
                 ),
-                dummy_version(
+                create_version(
                     '1.0.0',
                     'Sat Oct 17 15:00:31 2020 +0200',
                     breaking=0,
@@ -490,7 +490,7 @@ def test_compile_log_versions(test_input, expected):
         ),
         (
             [
-                dummy_version(
+                create_version(
                     'HEAD',
                     'Sat Oct 17 17:30:25 2020 +0200',
                     breaking=0,
@@ -498,7 +498,7 @@ def test_compile_log_versions(test_input, expected):
                     fix=1,
                     num_commits=4,
                 ),
-                dummy_version(
+                create_version(
                     '1.0.0',
                     'Sat Oct 17 15:00:31 2020 +0200',
                     breaking=0,
@@ -511,7 +511,7 @@ def test_compile_log_versions(test_input, expected):
         ),
         (
             [
-                dummy_version(
+                create_version(
                     'HEAD',
                     'Sat Oct 17 17:30:25 2020 +0200',
                     breaking=0,
@@ -519,7 +519,7 @@ def test_compile_log_versions(test_input, expected):
                     fix=1,
                     num_commits=4,
                 ),
-                dummy_version(
+                create_version(
                     '1.0.0',
                     'Sat Oct 17 15:00:31 2020 +0200',
                     breaking=0,
@@ -532,7 +532,7 @@ def test_compile_log_versions(test_input, expected):
         ),
         (
             [
-                dummy_version(
+                create_version(
                     'HEAD',
                     'Sat Oct 17 17:30:25 2020 +0200',
                     breaking=0,
@@ -540,7 +540,7 @@ def test_compile_log_versions(test_input, expected):
                     fix=0,
                     num_commits=4,
                 ),
-                dummy_version(
+                create_version(
                     '1.0.0',
                     'Sat Oct 17 15:00:31 2020 +0200',
                     breaking=0,
@@ -553,7 +553,7 @@ def test_compile_log_versions(test_input, expected):
         ),
         (
             [
-                dummy_version(
+                create_version(
                     'HEAD',
                     'Sat Oct 17 17:30:25 2020 +0200',
                     breaking=1,
@@ -577,7 +577,7 @@ def test_calculate_next(versions, expected):
     [
         (
             [
-                dummy_version(
+                create_version(
                     'HEAD',
                     'Sat Oct 17 17:30:25 2020 +0200',
                     breaking=0,
@@ -585,7 +585,7 @@ def test_calculate_next(versions, expected):
                     fix=1,
                     num_commits=4,
                 ),
-                dummy_version(
+                create_version(
                     '1.0.0',
                     'Sat Oct 17 15:00:31 2020 +0200',
                     breaking=0,
@@ -599,7 +599,7 @@ def test_calculate_next(versions, expected):
         ),
         (
             [
-                dummy_version(
+                create_version(
                     'HEAD',
                     'Sat Oct 17 17:30:25 2020 +0200',
                     breaking=0,
@@ -607,7 +607,7 @@ def test_calculate_next(versions, expected):
                     fix=1,
                     num_commits=4,
                 ),
-                dummy_version(
+                create_version(
                     'version1.0.0',
                     'Sat Oct 17 15:00:31 2020 +0200',
                     breaking=0,
@@ -621,7 +621,7 @@ def test_calculate_next(versions, expected):
         ),
         (
             [
-                dummy_version(
+                create_version(
                     'HEAD',
                     'Sat Oct 17 17:30:25 2020 +0200',
                     breaking=0,
@@ -629,7 +629,7 @@ def test_calculate_next(versions, expected):
                     fix=1,
                     num_commits=4,
                 ),
-                dummy_version(
+                create_version(
                     'v1.0.0',
                     'Sat Oct 17 15:00:31 2020 +0200',
                     breaking=0,
@@ -654,7 +654,7 @@ def test_calculate_next_prefixes_success(versions, prefix, expected):
     [
         (
             [
-                dummy_version(
+                create_version(
                     'HEAD',
                     'Sat Oct 17 17:30:25 2020 +0200',
                     breaking=0,
@@ -662,7 +662,7 @@ def test_calculate_next_prefixes_success(versions, prefix, expected):
                     fix=1,
                     num_commits=4,
                 ),
-                dummy_version(
+                create_version(
                     '1.0.0',
                     'Sat Oct 17 15:00:31 2020 +0200',
                     breaking=0,
@@ -675,7 +675,7 @@ def test_calculate_next_prefixes_success(versions, prefix, expected):
         ),
         (
             [
-                dummy_version(
+                create_version(
                     'HEAD',
                     'Sat Oct 17 17:30:25 2020 +0200',
                     breaking=0,
@@ -683,7 +683,7 @@ def test_calculate_next_prefixes_success(versions, prefix, expected):
                     fix=1,
                     num_commits=4,
                 ),
-                dummy_version(
+                create_version(
                     'version1.0.0',
                     'Sat Oct 17 15:00:31 2020 +0200',
                     breaking=0,
@@ -696,7 +696,7 @@ def test_calculate_next_prefixes_success(versions, prefix, expected):
         ),
         (
             [
-                dummy_version(
+                create_version(
                     'HEAD',
                     'Sat Oct 17 17:30:25 2020 +0200',
                     breaking=0,
@@ -704,7 +704,7 @@ def test_calculate_next_prefixes_success(versions, prefix, expected):
                     fix=1,
                     num_commits=4,
                 ),
-                dummy_version(
+                create_version(
                     'v1.0.0',
                     'Sat Oct 17 15:00:31 2020 +0200',
                     breaking=0,
@@ -726,7 +726,7 @@ def test_calculate_next_prefixes_failure(versions, prefix):
     "versions",
     [
         [
-            dummy_version(
+            create_version(
                 'HEAD',
                 'Sat Oct 17 17:30:25 2020 +0200',
                 breaking=0,
@@ -734,7 +734,7 @@ def test_calculate_next_prefixes_failure(versions, prefix):
                 fix=1,
                 num_commits=4,
             ),
-            dummy_version(
+            create_version(
                 '01.0.0',
                 'Sat Oct 17 15:00:31 2020 +0200',
                 breaking=0,
@@ -744,7 +744,7 @@ def test_calculate_next_prefixes_failure(versions, prefix):
             ),
         ],
         [
-            dummy_version(
+            create_version(
                 'HEAD',
                 'Sat Oct 17 17:30:25 2020 +0200',
                 breaking=0,
@@ -752,7 +752,7 @@ def test_calculate_next_prefixes_failure(versions, prefix):
                 fix=1,
                 num_commits=4,
             ),
-            dummy_version(
+            create_version(
                 '1.0.',
                 'Sat Oct 17 15:00:31 2020 +0200',
                 breaking=0,
@@ -762,7 +762,7 @@ def test_calculate_next_prefixes_failure(versions, prefix):
             ),
         ],
         [
-            dummy_version(
+            create_version(
                 'HEAD',
                 'Sat Oct 17 17:30:25 2020 +0200',
                 breaking=0,
@@ -770,7 +770,7 @@ def test_calculate_next_prefixes_failure(versions, prefix):
                 fix=1,
                 num_commits=4,
             ),
-            dummy_version(
+            create_version(
                 '1.0',
                 'Sat Oct 17 15:00:31 2020 +0200',
                 breaking=0,
@@ -780,7 +780,7 @@ def test_calculate_next_prefixes_failure(versions, prefix):
             ),
         ],
         [
-            dummy_version(
+            create_version(
                 'HEAD',
                 'Sat Oct 17 17:30:25 2020 +0200',
                 breaking=0,
@@ -788,7 +788,7 @@ def test_calculate_next_prefixes_failure(versions, prefix):
                 fix=1,
                 num_commits=4,
             ),
-            dummy_version(
+            create_version(
                 '1',
                 'Sat Oct 17 15:00:31 2020 +0200',
                 breaking=0,
@@ -811,7 +811,7 @@ def test_calculate_next_version_string_failure(versions):
     [
         (
             [
-                dummy_version(
+                create_version(
                     'HEAD',
                     'Sat Oct 17 17:30:25 2020 +0200',
                     breaking=3,
@@ -819,7 +819,7 @@ def test_calculate_next_version_string_failure(versions):
                     fix=3,
                     num_commits=4,
                 ),
-                dummy_version(
+                create_version(
                     'v0.1.1',
                     'Sat Oct 17 15:00:31 2020 +0200',
                     breaking=0,
@@ -827,7 +827,7 @@ def test_calculate_next_version_string_failure(versions):
                     fix=0,
                     num_commits=2,
                 ),
-                dummy_version(
+                create_version(
                     'v0.0.0',
                     'Sat Oct 17 13:19:28 2020 +0200',
                     breaking=0,
@@ -838,7 +838,7 @@ def test_calculate_next_version_string_failure(versions):
             ],
             "v",
             [
-                dummy_version(
+                create_version(
                     'v0.2.0',
                     'Sat Oct 17 17:30:25 2020 +0200',
                     breaking=3,
@@ -846,7 +846,7 @@ def test_calculate_next_version_string_failure(versions):
                     fix=3,
                     num_commits=4,
                 ),
-                dummy_version(
+                create_version(
                     'v0.1.1',
                     'Sat Oct 17 15:00:31 2020 +0200',
                     breaking=0,
@@ -854,7 +854,7 @@ def test_calculate_next_version_string_failure(versions):
                     fix=0,
                     num_commits=2,
                 ),
-                dummy_version(
+                create_version(
                     'v0.0.0',
                     'Sat Oct 17 13:19:28 2020 +0200',
                     breaking=0,
@@ -878,7 +878,7 @@ def test_update_latest_version(versions, prefix, expected):
     [
         (
             [
-                dummy_version(
+                create_version(
                     'HEAD',
                     'Sat Oct 17 17:30:25 2020 +0200',
                     breaking=3,
@@ -886,7 +886,7 @@ def test_update_latest_version(versions, prefix, expected):
                     fix=3,
                     num_commits=4,
                 ),
-                dummy_version(
+                create_version(
                     'v0.1.1',
                     'Sat Oct 17 15:00:31 2020 +0200',
                     breaking=0,
@@ -894,7 +894,7 @@ def test_update_latest_version(versions, prefix, expected):
                     fix=0,
                     num_commits=2,
                 ),
-                dummy_version(
+                create_version(
                     'v0.0.0',
                     'Sat Oct 17 13:19:28 2020 +0200',
                     breaking=0,
@@ -906,7 +906,7 @@ def test_update_latest_version(versions, prefix, expected):
             "1.0.0",
             "v",
             [
-                dummy_version(
+                create_version(
                     'v1.0.0',
                     'Sat Oct 17 17:30:25 2020 +0200',
                     breaking=3,
@@ -914,7 +914,7 @@ def test_update_latest_version(versions, prefix, expected):
                     fix=3,
                     num_commits=4,
                 ),
-                dummy_version(
+                create_version(
                     'v0.1.1',
                     'Sat Oct 17 15:00:31 2020 +0200',
                     breaking=0,
@@ -922,7 +922,7 @@ def test_update_latest_version(versions, prefix, expected):
                     fix=0,
                     num_commits=2,
                 ),
-                dummy_version(
+                create_version(
                     'v0.0.0',
                     'Sat Oct 17 13:19:28 2020 +0200',
                     breaking=0,
