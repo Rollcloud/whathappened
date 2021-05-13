@@ -209,7 +209,19 @@ def calculate_next(versions, prefix=""):
             return f"{prefix}{major}.{minor}.{patch}"
 
 
-def compile_log(commits):
+def _is_valid_version(tag, prefix=""):
+    """Check if the provided tag is a version number."""
+
+    tag = tag[len(prefix) :]  # subtring the tag by prefix length
+    result = semver_regex.match(tag)
+
+    if result is None:
+        return False
+    else:
+        return True
+
+
+def compile_log(commits, prefix=""):
     """Iterate though a list of Commits, compiling a list of Versions based on tags."""
     versions = []
 
@@ -218,9 +230,12 @@ def compile_log(commits):
     # group by version
     for commit in commits:
         # make a new version if required
-        if len(commit['tags']) > 0 or len(versions) == 0:
-            tag = commit['tags'][0] if len(commit['tags']) > 0 else 'HEAD'
-            versions.append(Version(ref=tag, date=commit['date']))
+        if len(commit['tags']) > 0 and _is_valid_version(
+            commit['tags'][0], prefix=prefix
+        ):
+            versions.append(Version(ref=commit['tags'][0], date=commit['date']))
+        elif len(versions) == 0:
+            versions.append(Version(ref='HEAD', date=commit['date']))
 
         this_commit = Commit(commit)
 

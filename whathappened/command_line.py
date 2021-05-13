@@ -17,7 +17,7 @@ def main(
     git_log_args=[],
 ):
     commits = changelog.get_commits(git_log_args=git_log_args)
-    versions = changelog.compile_log(commits)
+    versions = changelog.compile_log(commits, prefix=prefix)
     versions = (
         changelog.update_latest_version(versions, prefix=prefix)
         if overriding_version is None

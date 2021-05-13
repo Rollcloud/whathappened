@@ -361,12 +361,64 @@ def test_commit_title_parsing(test_input, expected):
                     num_commits=1,
                 ),
             ],
-        )
+        ),
+        (
+            [
+                {
+                    'hash': '7b4e7e657f9e3f2f4033cc5f47bcc637f5799fe9',
+                    'tags': [],
+                    'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
+                    'date': 'Sat Oct 17 15:00:48 2020 +0200',
+                    'message': '',
+                    'title': 'fix: add inspiration',
+                },
+                {
+                    'hash': 'f60445bba0ac48e12ce6be5526644037234ae500',
+                    'tags': ['test'],
+                    'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
+                    'date': 'Sat Oct 17 15:00:31 2020 +0200',
+                    'message': '',
+                    'title': 'breaking docs (readme): add badges',
+                },
+                {
+                    'hash': '9e57ba91f54244af913931c017480a39605c15f9',
+                    'tags': ['v0.1.0'],
+                    'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
+                    'date': 'Sat Oct 17 13:55:04 2020 +0200',
+                    'message': (
+                        'Setup Python 3.6 on ubuntu-latest\n'
+                        'Install pipenv and dependencies\n'
+                        'Test'
+                    ),
+                    'title': 'build(actions): create python-app.yml for github actions',
+                },
+            ],
+            [
+                create_version(
+                    'HEAD',
+                    'Sat Oct 17 15:00:48 2020 +0200',
+                    breaking=1,
+                    feature=0,
+                    fix=1,
+                    num_commits=2,
+                ),
+                create_version(
+                    'v0.1.0',
+                    'Sat Oct 17 13:55:04 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=0,
+                    num_commits=1,
+                ),
+            ],
+        ),
     ],
 )
 def test_compile_log_versions(test_input, expected):
     commits = test_input
-    versions = cl.compile_log(commits)
+    versions = cl.compile_log(commits, prefix="v")
+
+    assert len(versions) == len(expected)
 
     for version, expectation in zip(versions, expected):
         assert_version(version, expectation)
@@ -1059,7 +1111,7 @@ def test_override_latest_version(versions, desired, prefix, expected):
 )
 def test_changelog_production(test_input, expected):
     commits = test_input
-    versions = cl.compile_log(commits)
+    versions = cl.compile_log(commits, prefix="v")
     log = cl.format_log(versions)
 
     print(log)
@@ -1191,7 +1243,7 @@ def test_changelog_production(test_input, expected):
 )
 def test_changelog_development(test_input, expected):
     commits = test_input
-    versions = cl.compile_log(commits)
+    versions = cl.compile_log(commits, prefix="v")
     log = cl.format_log(versions, development=True)
 
     print(log)
@@ -1268,7 +1320,7 @@ def test_changelog_development(test_input, expected):
 )
 def test_changelog_emoji(test_input, expected):
     commits = test_input
-    versions = cl.compile_log(commits)
+    versions = cl.compile_log(commits, prefix="v")
     log = cl.format_log(versions, emoji=True)
 
     print(log)
