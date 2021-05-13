@@ -1,5 +1,31 @@
 # Changelog
 
+## v1.1.0 (2021-05-13)
+
+### Docs
+
+* Changelog - update to v1.1.0
+* Readme - add reference and link to Commit-It-Simple
+
+### Features
+
+* Add development option to include extra commit types in changelog
+* Changelog - add additional commit types
+
+### Fixes
+
+* Changelog - only include valid version numbers in tags
+* Changelog - remove executable file permissions
+* Command-line - prevent a stack trace from printing on error
+
+### Refactorings
+
+* Changelog - merge in additional commit types
+* Changelog - rename Commit.type to Commit.commit\_type
+* Changelog - replace \_\_getattr\_\_ with properties
+* Tests - rename dummy\_version() -> create\_version()
+
+
 ## v1.0.0 (2021-04-23)
 
 ### Docs
